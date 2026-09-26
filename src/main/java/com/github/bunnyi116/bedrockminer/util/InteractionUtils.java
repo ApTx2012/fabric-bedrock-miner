@@ -9,6 +9,7 @@ import net.fabricmc.api.Environment;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.protocol.game.ServerboundPlayerActionPacket;
+import net.minecraft.network.protocol.game.ServerboundUseItemOnPacket;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.state.BlockState;
@@ -53,9 +54,9 @@ public class InteractionUtils {
         // 创造直接破坏
         if (player.getAbilities().instabuild) {
             NetworkUtils.sendPacket((sequence) -> {
-                if (!blockState.isAir() && localPrediction) {
-                    gameMode.destroyBlock(pos);
-                }
+//                if (!blockState.isAir() && localPrediction) {
+//                     gameMode.destroyBlock(pos);
+//                }
                 return new ServerboundPlayerActionPacket(Action.START_DESTROY_BLOCK, pos, direction, sequence);
             });
             return BlockBreakResult.COMPLETED;
@@ -74,7 +75,7 @@ public class InteractionUtils {
             if (progress >= 1.0F) {
                 NetworkUtils.sendPacket((sequence) -> {
                     if (!blockState.isAir() && localPrediction) {
-                        gameMode.destroyBlock(pos);
+                        // gameMode.destroyBlock(pos);
                     }
                     return new ServerboundPlayerActionPacket(Action.STOP_DESTROY_BLOCK, pos, direction, sequence);
                 });
@@ -92,9 +93,9 @@ public class InteractionUtils {
             float progress = BlockUtils.getDestroyProgress(blockState);
             if (progress >= 1.0F) {
                 NetworkUtils.sendPacket((sequence) -> {
-                    if (!blockState.isAir() && localPrediction) {
-                        gameMode.destroyBlock(pos);
-                    }
+//                    if (!blockState.isAir() && localPrediction) {
+//                         gameMode.destroyBlock(pos);
+//                    }
                     return new ServerboundPlayerActionPacket(Action.START_DESTROY_BLOCK, pos, direction, sequence);
                 });
                 return BlockBreakResult.COMPLETED;
@@ -103,9 +104,9 @@ public class InteractionUtils {
             if (progress >= 0.7F) {
                 NetworkUtils.sendPacket((sequence) -> new ServerboundPlayerActionPacket(Action.START_DESTROY_BLOCK, pos, direction, sequence));
                 NetworkUtils.sendPacket((sequence) -> {
-                    if (!blockState.isAir() && localPrediction) {
-                        gameMode.destroyBlock(pos);
-                    }
+//                    if (!blockState.isAir() && localPrediction) {
+//                         gameMode.destroyBlock(pos);
+//                    }
                     return new ServerboundPlayerActionPacket(Action.STOP_DESTROY_BLOCK, pos, direction, sequence);
                 });
                 return BlockBreakResult.COMPLETED;
@@ -157,6 +158,31 @@ public class InteractionUtils {
         Vec3 hitVec3d = Vec3.atCenterOf(hitPos).relative(facing, 0.5F);
         BlockHitResult hitResult = new BlockHitResult(hitVec3d, facing, blockPos, false);
         gameMode.useItemOn(player, InteractionHand.MAIN_HAND, hitResult);
+
+//        NetworkUtils.sendPacket((sequence) -> {
+//            return new ServerboundUseItemOnPacket(InteractionHand.MAIN_HAND, hitResult, sequence);
+//        });
+    }
+
+    public static void placement2(BlockPos blockPos, Direction facing, @Nullable Item... items) {
+        if (blockPos == null || facing == null) {
+            return;
+        }
+        if (!PlayerUtils.isWithinBlockInteractionRange(blockPos, 0F)) {
+            return;
+        }
+        if (items != null) {
+            InventoryUtils.switchToItem(items);
+        }
+
+        TaskLookManager.INSTANCE.sendLookPacket(facing);
+
+        BlockPos hitPos = blockPos.relative(facing.getOpposite());
+        Vec3 hitVec3d = Vec3.atCenterOf(hitPos).relative(facing, 0.5F);
+        BlockHitResult hitResult = new BlockHitResult(hitVec3d, facing, blockPos, false);
+        NetworkUtils.sendPacket((sequence) -> {
+            return new ServerboundUseItemOnPacket(InteractionHand.MAIN_HAND, hitResult, sequence);
+        });
     }
 
     public static void placement(BlockPos blockPos, Direction facing) {

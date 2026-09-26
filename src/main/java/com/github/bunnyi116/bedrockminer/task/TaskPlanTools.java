@@ -33,9 +33,6 @@ public class TaskPlanTools {
         final var list = new ArrayList<TaskPlanItem>();
         final var pistonPos = targetPos.relative(direction);
         for (Direction pistonFacing : ConfigManager.getInstance().getConfig().pistonFacings) {
-            if (pistonFacing.getAxis().isHorizontal()) {
-                continue;
-            }
             // 活塞臂在目标方块位置
             final var pistonHeadPos = pistonPos.relative(pistonFacing);
             if (pistonHeadPos.equals(targetPos))

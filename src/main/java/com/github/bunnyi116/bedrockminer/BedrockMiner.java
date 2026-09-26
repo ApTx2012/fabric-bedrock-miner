@@ -1,6 +1,7 @@
 package com.github.bunnyi116.bedrockminer;
 
 import com.github.bunnyi116.bedrockminer.command.CommandManager;
+import com.github.bunnyi116.bedrockminer.dev.Context;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
@@ -14,11 +15,12 @@ import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class BedrockMiner implements ModInitializer  {
+public class BedrockMiner implements ModInitializer {
     public static final String MOD_NAME = "Bedrock Miner";
     public static final String MOD_ID = "bedrockminer";
     public static final String COMMAND_PREFIX = "bedrockMiner";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_NAME);
+    public static final Context CONTEXT = Context.getInstance();
     public static final boolean TEST = false;
 
     // 常用游戏变量(通过 mixin 从 MultiPlayerGameMode 更新)
@@ -49,7 +51,7 @@ public class BedrockMiner implements ModInitializer  {
         BedrockMiner.hitResult = mc.hitResult;
         BedrockMiner.connection = mc.getConnection();
         BedrockMiner.gameMode = mc.gameMode;
-        if (mc.gameMode!= null) {
+        if (mc.gameMode != null) {
             BedrockMiner.gameType = mc.gameMode.getPlayerMode();
         }
     }

@@ -291,8 +291,9 @@ public class TaskManager {
         List<Component> missingList = new ArrayList<>();
 
         int pistonCount = InventoryUtils.getInventoryItemCount(Items.PISTON);
-        if (pistonCount < 2) {
-            missingList.add(Component.literal("§c" + (2 - pistonCount) + "x §e").append(Component.translatable(Items.PISTON.getDescriptionId())));
+        int pistonMax = 2;
+        if (pistonCount < pistonMax) {
+            missingList.add(Component.literal("§c" + (pistonMax - pistonCount) + "x §e").append(Component.translatable(Items.PISTON.getDescriptionId())));
         }
 
         int torchCount = InventoryUtils.getInventoryItemCount(Items.REDSTONE_TORCH);

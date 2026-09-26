@@ -446,6 +446,9 @@ public class Task {
                 return;
             }
             BlockState blockState = world.getBlockState(blockPos);
+            if (blockState.is(Blocks.MOVING_PISTON)){
+                return;
+            }
             debug("任务物品正在回收: (%s) --> %s", blockPos.toShortString(), blockState.getBlock().getName().getString());
             if (blockState.getBlock().defaultDestroyTime() < 0) {
                 recycledQueue.remove();
@@ -512,7 +515,7 @@ public class Task {
                 InteractionUtils.updateBlockBreakingProgress(planItem.redstoneTorch.pos);
             }
             InteractionUtils.updateBlockBreakingProgress(planItem.piston.pos);
-            InteractionUtils.placement(planItem.piston.pos, planItem.direction.getOpposite(), Items.PISTON, Items.STICKY_PISTON);
+            InteractionUtils.placement2(planItem.piston.pos, planItem.direction.getOpposite(), Items.PISTON, Items.STICKY_PISTON);
             this.addRecycled(planItem.piston.pos);
             if (this.executeModify) {
                 this.resetModifyLook();
