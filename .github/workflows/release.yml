@@ -42,22 +42,9 @@ jobs:
     with:
       target_subproject: ${{ github.event.inputs.target_subproject }}
 
-  # 确保输入的发布标签有效
-  validate_release:
-    runs-on: ubuntu-latest
-    steps:
-      - name: 获取 GitHub 发布信息
-        uses: cardinalby/git-get-release-action@1.2.5
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
-        with:
-          tag: ${{ github.event.inputs.target_release_tag }}
-
   build:
     uses: ./.github/workflows/_step.build.yml
     secrets: inherit
-    needs:
-      - validate_release
     with:
       target_subproject: ${{ github.event.inputs.target_subproject }}
       release: true
@@ -94,6 +81,7 @@ jobs:
       - name: 获取 GitHub 发布信息
         id: get_release
         uses: cardinalby/git-get-release-action@1.2.5
+        continue-on-error: true
         env:
           GITHUB_TOKEN: ${{ github.token }}
         with:
@@ -190,7 +178,7 @@ jobs:
           game-version-filter: any
           dependencies: ''  # 显式声明依赖，避免 mc-publish 尝试从 fabric.mod.json 加载
 
-          github-changelog: ${{ steps.get_release.outputs.body }}
+          github-changelog: ${{ steps.changelog.outputs.result }}
 #          modrinth-changelog: ${{ steps.changelog.outputs.result }}
           curseforge-changelog: ${{ steps.changelog.outputs.result }}
 
