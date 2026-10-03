@@ -38,7 +38,10 @@
   "bedrockminer.config.fast_processing": "快速处理",
   "bedrockminer.config.disable_empty_hand_toggle": "禁用空手切换",
   "bedrockminer.config.debug": "调试模式",
-  "bedrockminer.config.limit_max": "最大限制",
+  "bedrockminer.config.limit_max": "最大并发任务数",
   "bedrockminer.config.block_whitelist": "方块白名单",
-  "bedrockminer.config.floors_blacklist": "层数黑名单"
+  "bedrockminer.config.floors_blacklist": "层数黑名单",
+  "bedrockminer.command.config.limit_max.set": "§a最大并发数已设置为：§e%count%",
+  "bedrockminer.command.config.limit_max.show": "§6当前最大并发数：§e%count%",
+  "bedrockminer.command.config.limit_max.invalid": "§c数值无效！范围：§e1 ~ 50"
 }

@@ -23,6 +23,7 @@ public class CommandManager {
         commands.add(new TaskCommand());
         commands.add(new DisableCommand());
         commands.add(new DisableEmptyHandSwitchToggleCommand());
+        commands.add(new ConfigCommand());
     }
 
     private static String getCommandPrefix() {

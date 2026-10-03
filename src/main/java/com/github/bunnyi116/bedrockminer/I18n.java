@@ -45,4 +45,8 @@ public class I18n {
     public static final Component FLOOR_BLACK_LIST_REMOVE = Component.translatable("bedrockminer.command.floor_black_list.remove");
     public static final Component FLOOR_BLACK_LIST_WARN = Component.translatable("bedrockminer.command.floor_black_list.warn");
     public static final Component FLOOR_BLACK_LIST_SHOW = Component.translatable("bedrockminer.command.floor_black_list.show");
+
+    public static final Component COMMAND_CONFIG_LIMIT_MAX_SET = Component.translatable("bedrockminer.command.config.limit_max.set");
+    public static final Component COMMAND_CONFIG_LIMIT_MAX_SHOW = Component.translatable("bedrockminer.command.config.limit_max.show");
+    public static final Component COMMAND_CONFIG_LIMIT_MAX_INVALID = Component.translatable("bedrockminer.command.config.limit_max.invalid");
 }

@@ -38,7 +38,10 @@
   "bedrockminer.config.fast_processing": "Fast Processing",
   "bedrockminer.config.disable_empty_hand_toggle": "Disable Empty Hand Toggle",
   "bedrockminer.config.debug": "Debug Mode",
-  "bedrockminer.config.limit_max": "Limit Max",
+  "bedrockminer.config.limit_max": "Max Concurrent Tasks",
   "bedrockminer.config.block_whitelist": "Block Whitelist",
-  "bedrockminer.config.floors_blacklist": "Floors Blacklist"
+  "bedrockminer.config.floors_blacklist": "Floors Blacklist",
+  "bedrockminer.command.config.limit_max.set": "§aMax concurrent tasks set to: §e%count%",
+  "bedrockminer.command.config.limit_max.show": "§6Current max concurrent tasks: §e%count%",
+  "bedrockminer.command.config.limit_max.invalid": "§cInvalid value! Range: §e1 ~ 50"
 }

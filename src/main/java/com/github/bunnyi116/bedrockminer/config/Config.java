@@ -20,7 +20,7 @@ public class Config {
     public List<Integer> floorsBlacklist = new ArrayList<>();
     public List<TaskRegion> ranges = new ArrayList<>();
     public List<String> blockWhitelist = getDefaultBlockWhitelist();
-    public int limitMax = 1;
+    public int limitMax = 4;
 
 
     public transient List<String> blockBlacklistServer = getDefaultBlockBlacklistServer();

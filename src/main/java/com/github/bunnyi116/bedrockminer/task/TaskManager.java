@@ -141,11 +141,11 @@ public class TaskManager {
                         if (currentTask.planItem != null && !currentTask.planItem.piston.isNeedModify()) {
                             execute = true;
                         } else {
-                            return;
+                            continue;
                         }
                         break;
                     case RECYCLED_ITEMS:
-                        return;
+                        continue;
                 }
                 processing = false;
                 if (currentTask.isComplete()) {
@@ -155,7 +155,7 @@ public class TaskManager {
                     continue;
                 }
                 if (modifyLook) {
-                    return;
+                    break;
                 }
             }
             if (this.activeBlockTasks.size() >= Config.getInstance().limitMax) {
